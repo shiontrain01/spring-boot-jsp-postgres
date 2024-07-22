@@ -158,6 +158,24 @@
         event.stopPropagation();
         $(this).addClass('was-validated');
       } else {
+
+        var statusMap = {
+          'EM_ANALISE': 'em análise',
+          'ANALISE_REALIZADA': 'análise realizada',
+          'ANALISE_APROVADA': 'análise aprovada',
+          'INICIADO': 'iniciado',
+          'PLANEJADO': 'planejado',
+          'EM_ANDAMENTO': 'em andamento',
+          'ENCERRADO': 'encerrado',
+          'CANCELADO': 'cancelado'
+        };
+
+        var riskMap = {
+          'BAIXO_RISCO': 'baixo risco',
+          'MEDIO_RISCO': 'médio risco',
+          'ALTO_RISCO': 'alto risco'
+        };
+
         var formData = {
           id: projectId,
           nome: $('#nome').val(),
@@ -167,8 +185,8 @@
           dataFim: $('#dataRealTermino').val(),
           orcamento: $('#orcamentoTotal').val(),
           descricao: $('#descricao').val(),
-          risco: $('#risco').val().toLowerCase().replace(/_/g, ' '),
-          status: $('#status').val().toLowerCase().replace(/_/g, ' ')
+          risco: riskMap[$('#risco').val()],
+          status: statusMap[$('#status').val()]
         };
 
         $.ajax({
