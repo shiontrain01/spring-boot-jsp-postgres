@@ -74,6 +74,7 @@
                 } else {
                     $('#searchResults').html('<p>Por favor, insira um termo de busca.</p>');
                 }
+                event.preventDefault(); // Prevenir a submissão do formulário
             }
         });
 

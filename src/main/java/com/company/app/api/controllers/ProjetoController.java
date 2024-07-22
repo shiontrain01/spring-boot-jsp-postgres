@@ -32,10 +32,10 @@ public class ProjetoController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary  = "Buscar um projeto por Id")
-    public ResponseEntity<ProjetoDTO> getById(@PathVariable Long id) {
+    @Operation(summary = "Buscar um projeto por Id")
+    public ResponseEntity<ProjetoDTO> getById(@RequestParam Long id) {
         try {
             ProjetoDTO projeto = _projetoQuery.findById(id).getData();
             if (projeto != null) {
