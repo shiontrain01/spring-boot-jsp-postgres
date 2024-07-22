@@ -8,8 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -17,10 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_projeto")
-public class Projeto implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
+public class Projeto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_projeto")
@@ -54,7 +49,6 @@ public class Projeto implements Serializable {
     private String risco;
 
     @NotNull(message = "O projeto deve ter um gerente")
-    @ManyToOne
-    @JoinColumn(name = "cd_gerente")
-    private Pessoa gerente;
+    @Column(name = "cd_gerente")
+    private Long gerente;
 }

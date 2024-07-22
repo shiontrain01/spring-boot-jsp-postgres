@@ -103,9 +103,9 @@ public class PessoaController {
     @PostMapping("/associar")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Associar uma pessoa a um projeto")
-    public ResponseEntity<MembroDTO> associate(@RequestBody MembroDTO membroDto) {
+    public ResponseEntity<MembroDTO> associate(@RequestBody MembroDTO dto) {
         try {
-            MembroDTO membro = _membrosCommand.save(membroDto);
+            MembroDTO membro = _membrosCommand.save(dto);
             return new ResponseEntity<>(membro, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

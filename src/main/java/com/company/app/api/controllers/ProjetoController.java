@@ -63,9 +63,9 @@ public class ProjetoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary  = "Cria um novo projeto")
-    public ResponseEntity<ProjetoDTO> create(@RequestBody ProjetoDTO projetoDto) {
+    public ResponseEntity<ProjetoDTO> create(@RequestBody ProjetoDTO dto) {
         try {
-            ProjetoDTO projeto = _projetoCommand.save(projetoDto);
+            ProjetoDTO projeto = _projetoCommand.save(dto);
             return new ResponseEntity<>(projeto, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -75,10 +75,10 @@ public class ProjetoController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary  = "Atualizar um projeto")
-    public ResponseEntity<ProjetoDTO> update(@PathVariable Long id, @RequestBody ProjetoDTO projetoDto) {
+    public ResponseEntity<ProjetoDTO> update(@PathVariable Long id, @RequestBody ProjetoDTO dto) {
         try {
-            projetoDto.setId(id);
-            ProjetoDTO projeto = _projetoCommand.save(projetoDto);
+            dto.setId(id);
+            ProjetoDTO projeto = _projetoCommand.save(dto);
             return new ResponseEntity<>(projeto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
