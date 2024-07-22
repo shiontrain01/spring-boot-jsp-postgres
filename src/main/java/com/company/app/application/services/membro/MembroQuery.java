@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class MembroQuery implements IMembroQuery {
-    private final MembroMapper mapper = MembroMapper.INSTANCE;
+    private final MembroMapper mapper;
     private final MembroRepository _repository;
 
     public ListResultDto<MembroDTO> findAll() {

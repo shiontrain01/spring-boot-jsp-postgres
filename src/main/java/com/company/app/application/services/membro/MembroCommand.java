@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MembroCommand implements IMembroCommand {
-    private final MembroMapper mapper = MembroMapper.INSTANCE;
+    private final MembroMapper mapper;
     private final UseCaseFacade facade;
 
     public MembroDTO save(MembroDTO dto) {

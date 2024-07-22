@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProjetoQuery implements IProjetoQuery {
-    private final ProjetoMapper mapper = ProjetoMapper.INSTANCE;
+    private final ProjetoMapper mapper;
     private final ProjetoRepository _repository;
 
     public ListResultDto<ProjetoDTO> findAll() {

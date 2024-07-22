@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PessoaQuery implements IPessoaQuery {
-    private final PessoaMapper mapper = PessoaMapper.INSTANCE;
+    private final PessoaMapper mapper;
     private final PessoaRepository _repository;
 
     public ListResultDto<PessoaDTO> findAll() {

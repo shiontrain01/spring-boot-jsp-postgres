@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PessoaCommand implements IPessoaCommand {
-    private final PessoaMapper mapper = PessoaMapper.INSTANCE;
+    private final PessoaMapper mapper;
     private final UseCaseFacade facade;
 
     public PessoaDTO save(PessoaDTO dto) {

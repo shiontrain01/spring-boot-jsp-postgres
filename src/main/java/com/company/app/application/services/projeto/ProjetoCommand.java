@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ProjetoCommand implements IProjetoCommand {
-    private final ProjetoMapper mapper = ProjetoMapper.INSTANCE;
+    private final ProjetoMapper mapper;
     private final UseCaseFacade facade;
 
     public ProjetoDTO save(ProjetoDTO dto) {
