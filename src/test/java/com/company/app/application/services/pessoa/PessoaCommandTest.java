@@ -84,4 +84,43 @@ public class PessoaCommandTest {
 
         verify(facade, times(1)).execute(any(UcPessoaDelete.class));
     }
+
+    @Test
+    void save_deveRetornarPessoaDTO_quandoSalvoComSucesso() {
+        when(mapper.toEntity(any(PessoaDTO.class))).thenReturn(pessoa);
+        when(facade.execute(any(UcPessoaCreate.class))).thenReturn(pessoa);
+        when(mapper.toDto(any(Pessoa.class))).thenReturn(pessoaDTO);
+
+        PessoaDTO result = pessoaCommand.save(pessoaDTO);
+
+        assertEquals(pessoaDTO.getId(), result.getId());
+        assertEquals(pessoaDTO.getNome(), result.getNome());
+        verify(mapper, times(1)).toEntity(pessoaDTO);
+        verify(facade, times(1)).execute(any(UcPessoaCreate.class));
+        verify(mapper, times(1)).toDto(pessoa);
+    }
+
+    @Test
+    void update_deveRetornarPessoaDTO_quandoAtualizadoComSucesso() {
+        when(mapper.toEntity(any(PessoaDTO.class))).thenReturn(pessoa);
+        when(facade.execute(any(UcPessoaEdit.class))).thenReturn(pessoa);
+        when(mapper.toDto(any(Pessoa.class))).thenReturn(pessoaDTO);
+
+        PessoaDTO result = pessoaCommand.update(pessoaDTO);
+
+        assertEquals(pessoaDTO.getId(), result.getId());
+        assertEquals(pessoaDTO.getNome(), result.getNome());
+        verify(mapper, times(1)).toEntity(pessoaDTO);
+        verify(facade, times(1)).execute(any(UcPessoaEdit.class));
+        verify(mapper, times(1)).toDto(pessoa);
+    }
+
+    @Test
+    void delete_deveChamarFacadeExecute_quandoDeletadoComSucesso() {
+        when(facade.execute(any(UcPessoaDelete.class))).thenReturn(null);
+
+        pessoaCommand.delete(1L);
+
+        verify(facade, times(1)).execute(any(UcPessoaDelete.class));
+    }
 }
