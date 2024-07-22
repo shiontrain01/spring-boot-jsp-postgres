@@ -59,9 +59,9 @@
       <div class="form-group mb-3">
         <label for="risco">Classificação de Risco</label>
         <select class="form-control" id="risco" name="risco" required>
-          <option value="BAIXO" ${projeto.risco == 'BAIXO' ? 'selected' : ''}>Baixo Risco</option>
-          <option value="MEDIO" ${projeto.risco == 'MEDIO' ? 'selected' : ''}>Médio Risco</option>
-          <option value="ALTO" ${projeto.risco == 'ALTO' ? 'selected' : ''}>Alto Risco</option>
+          <option value="baixo risco" ${projeto.risco == 'baixo risco' ? 'selected' : ''}>Baixo Risco</option>
+          <option value="médio risco" ${projeto.risco == 'médio risco' ? 'selected' : ''}>Médio Risco</option>
+          <option value="alto risco" ${projeto.risco == 'alto risco' ? 'selected' : ''}>Alto Risco</option>
         </select>
       </div>
       <div class="form-group mb-3">

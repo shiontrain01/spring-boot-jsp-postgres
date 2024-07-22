@@ -117,7 +117,7 @@
                 tabela += '<tr>';
                 tabela += '<td>' + projeto.nome + '</td>';
                 tabela += '<td>' + projeto.dataInicio + '</td>';
-                tabela += '<td>' + projeto.gerente.nome + '</td>';
+                tabela += '<td>' + projeto.gerente + '</td>';
                 tabela += '<td>' + projeto.status + '</td>';
                 tabela += '<td>';
                 tabela += '<a href="${pageContext.request.contextPath}/projetos/detalhes?id=' + projeto.id + '" class="btn btn-primary btn-sm">Visualizar/Editar</a> ';
