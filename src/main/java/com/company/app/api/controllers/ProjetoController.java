@@ -60,7 +60,7 @@ public class ProjetoController {
         }
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary  = "Cria um novo projeto")
     public ResponseEntity<ProjetoDTO> create(@RequestBody ProjetoDTO dto) {

@@ -24,6 +24,9 @@
             bottom: 0;
             position: absolute;
         }
+        .form-control-margin-right {
+            margin-right: 1%;
+        }
     </style>
 </head>
 <body>
@@ -38,7 +41,7 @@
 
     <!-- Nova Barra de Busca -->
     <div class="input-group mb-3">
-        <input type="text" id="searchInput" class="form-control" placeholder="Buscar">
+        <input type="text" id="searchInput" class="form-control form-control-margin-right" placeholder="Buscar">
         <div class="input-group-append">
             <button class="btn btn-primary" type="button" id="searchButton">Buscar</button>
         </div>
@@ -114,7 +117,7 @@
                 tabela += '<tr>';
                 tabela += '<td>' + projeto.nome + '</td>';
                 tabela += '<td>' + projeto.dataInicio + '</td>';
-                tabela += '<td>' + projeto.gerenteResponsavel + '</td>';
+                tabela += '<td>' + projeto.gerente.nome + '</td>';
                 tabela += '<td>' + projeto.status + '</td>';
                 tabela += '<td>';
                 tabela += '<a href="${pageContext.request.contextPath}/projetos/detalhes?id=' + projeto.id + '" class="btn btn-primary btn-sm">Visualizar/Editar</a> ';
