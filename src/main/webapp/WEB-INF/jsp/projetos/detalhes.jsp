@@ -155,16 +155,28 @@
         event.stopPropagation();
         $(this).addClass('was-validated');
       } else {
+
+        var statusMap = {
+          'EM_ANALISE': 'em análise',
+          'ANALISE_REALIZADA': 'análise realizada',
+          'ANALISE_APROVADA': 'análise aprovada',
+          'INICIADO': 'iniciado',
+          'PLANEJADO': 'planejado',
+          'EM_ANDAMENTO': 'em andamento',
+          'ENCERRADO': 'encerrado',
+          'CANCELADO': 'cancelado'
+        };
+
         var formData = {
           nome: $('#nome').val(),
           dataInicio: $('#dataInicio').val(),
-          gerenteResponsavel: $('#gerenteResponsavel').val(),
-          previsaoTermino: $('#previsaoTermino').val(),
-          dataRealTermino: $('#dataRealTermino').val(),
-          orcamentoTotal: $('#orcamentoTotal').val(),
+          gerente: $('#gerenteResponsavel').val(),
+          previsaoFim: $('#previsaoTermino').val(),
+          dataFim: $('#dataRealTermino').val(),
+          orcamento: $('#orcamentoTotal').val(),
           descricao: $('#descricao').val(),
           risco: $('#risco').val(),
-          status: $('#status').val()
+          status: statusMap[$('#status').val()]
         };
 
         $.ajax({
