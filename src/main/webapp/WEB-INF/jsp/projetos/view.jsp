@@ -122,15 +122,28 @@
                 tabela += '<td>' + projeto.status + '</td>';
                 tabela += '<td>';
                 tabela += '<a href="${pageContext.request.contextPath}/projetos/detalhes?id=' + projeto.id + '" class="btn btn-primary btn-sm">Visualizar/Editar</a> ';
-                tabela += '<form action="${pageContext.request.contextPath}/api/v1/projeto/' + projeto.id + '" method="post" style="display:inline;">';
-                tabela += '<input type="hidden" name="_method" value="delete">';
-                tabela += '<button type="submit" class="btn btn-danger btn-sm" ' + (projeto.status == 'INICIADO' || projeto.status == 'EM_ANDAMENTO' || projeto.status == 'ENCERRADO' ? 'disabled' : '') + '>Excluir</button>';
-                tabela += '</form>';
+                tabela += '<button type="button" class="btn btn-danger btn-sm delete-button" data-id="' + projeto.id + '"' + (projeto.status == 'INICIADO' || projeto.status == 'EM_ANDAMENTO' || projeto.status == 'ENCERRADO' ? ' disabled' : '') + '>Excluir</button>';
                 tabela += '</td>';
                 tabela += '</tr>';
             });
             tabela += '</tbody></table>';
             $('#searchResults').html(tabela);
+
+            $('.delete-button').click(function() {
+                var projectId = $(this).data('id');
+                if (confirm('Tem certeza que deseja excluir este projeto?')) {
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/api/v1/projeto/' + projectId,
+                        type: 'DELETE',
+                        success: function(result) {
+                            carregarProjetos(1, 10);
+                        },
+                        error: function(xhr, status, error) {
+                            alert('Erro ao excluir o projeto.');
+                        }
+                    });
+                }
+            });
         }
     });
 </script>
