@@ -15,9 +15,20 @@
       background-color: #f7f7f7;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
     }
     .form-actions {
       margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .form-actions .btn-secondary {
+      margin-right: 10px;
+    }
+    .top-right-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
   </style>
 </head>
@@ -26,6 +37,7 @@
 
 <div class="container mt-4">
   <div class="form-container">
+    <button type="button" id="deleteButton" class="btn btn-danger ms-2 top-right-button">Deletar</button>
     <h1 class="mb-4 text-center">Detalhes do Projeto</h1>
     <form id="projetoForm" method="post">
       <div class="form-group mb-3">
@@ -78,13 +90,9 @@
         </select>
       </div>
       <div class="form-actions">
+        <a href="${pageContext.request.contextPath}/projetos" class="btn btn-secondary">Cancelar</a>
         <button type="submit" class="btn btn-primary">Salvar</button>
-        <a href="${pageContext.request.contextPath}/projetos" class="btn btn-primary btn-custom">Cancelar</a>
       </div>
-    </form>
-    <form id="deleteForm" action="${pageContext.request.contextPath}/api/v1/projeto/${param.id}" method="post" class="mt-3">
-      <input type="hidden" name="_method" value="delete">
-      <button type="submit" class="btn btn-danger">Excluir</button>
     </form>
   </div>
 </div>
@@ -118,7 +126,7 @@
 
           var statusMap = {
             'em análise': 'EM_ANALISE',
-            'análise realizada':'ANALISE_REALIZADA',
+            'análise realizada': 'ANALISE_REALIZADA',
             'análise aprovada': 'ANALISE_APROVADA',
             'iniciado': 'INICIADO',
             'planejado': 'PLANEJADO',
@@ -199,6 +207,25 @@
           },
           error: function() {
             alert('Erro ao salvar o projeto.');
+          }
+        });
+      }
+    });
+
+    $('#deleteButton').click(function() {
+      if (confirm('Tem certeza que deseja deletar este projeto?')) {
+        var deleteUrl = `${pageContext.request.contextPath}/api/v1/projeto/` + projectId;
+        console.log('deleteUrl:', deleteUrl);
+
+        $.ajax({
+          type: 'DELETE',
+          url: deleteUrl,
+          success: function() {
+            alert('Projeto deletado com sucesso.');
+            window.location.href = `${pageContext.request.contextPath}/projetos`;
+          },
+          error: function() {
+            alert('Erro ao deletar o projeto.');
           }
         });
       }
