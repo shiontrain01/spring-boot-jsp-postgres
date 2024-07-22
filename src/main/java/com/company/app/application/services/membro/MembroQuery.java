@@ -16,12 +16,14 @@ public class MembroQuery implements IMembroQuery {
     private final MembroMapper mapper;
     private final MembroRepository _repository;
 
+    @Override
     public ListResultDto<MembroDTO> findAll() {
         var result = _repository.findAll();
         var response = result.stream().map(mapper::toDto).collect(Collectors.toList());
         return new ListResultDto<>(response);
     }
 
+    @Override
     public SingleResultDto<MembroDTO> findById(Long id) {
         var result = _repository.findById(id);
         if (result.isPresent()) {
