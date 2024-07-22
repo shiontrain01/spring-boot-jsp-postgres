@@ -1,8 +1,6 @@
 package com.company.app.application.dtos;
 
 import com.company.app.domain.models.Pessoa;
-import com.company.app.domain.models.enums.Risco;
-import com.company.app.domain.models.enums.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,8 +25,8 @@ public class ProjetoDTO implements Serializable {
     private LocalDate previsaoFim;
     private LocalDate dataFim;
     private String descricao;
-    private Status status;
+    private String status;
     private Float orcamento;
-    private Risco risco;
+    private String risco;
     private Pessoa gerente;
 }

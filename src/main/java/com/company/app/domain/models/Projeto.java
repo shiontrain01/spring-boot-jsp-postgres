@@ -1,7 +1,5 @@
 package com.company.app.domain.models;
 
-import com.company.app.domain.models.enums.Risco;
-import com.company.app.domain.models.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,16 +44,14 @@ public class Projeto implements Serializable {
     @Column(name = "tx_descricao")
     private String descricao;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "tx_status")
-    private Status status;
+    private String status;
 
     @Column(name = "num_orcamento")
     private Float orcamento;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "tx_risco")
-    private Risco risco;
+    private String risco;
 
     @NotNull(message = "O projeto deve ter um gerente")
     @ManyToOne
