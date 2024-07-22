@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/projeto")
@@ -25,14 +23,9 @@ public class ProjetoController {
     @GetMapping("/get-all")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary  = "Ver uma lista dos projetos disponiveis")
-    public ResponseEntity<List<ProjetoDTO>> getAll(@RequestParam("query") Optional<String> query, @RequestParam("pageNumber") Optional<Integer> pageNumber, @RequestParam("pageSize") Optional<Integer> pageSize) {
+    public ResponseEntity<List<ProjetoDTO>> getAll() {
         try {
-            List<ProjetoDTO> projetos = new ArrayList<>();
-            if (query.isPresent() && !query.get().isEmpty()) {
-                //projetos = _projetoQuery.findById(query.get()); // Implementar método search na interface IProjetoQuery
-            } else {
-                projetos = _projetoQuery.findAll().getData();
-            }
+            List<ProjetoDTO> projetos = _projetoQuery.findAll().getData();
             return new ResponseEntity<>(projetos, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,8 +53,7 @@ public class ProjetoController {
     @Operation(summary = "Busca um projeto pelo nome")
     public ResponseEntity<List<ProjetoDTO>> getByNomeProjeto(@RequestParam String nome) {
         try {
-            List<ProjetoDTO> projeto = new ArrayList<>();
-//            projeto = projetoQuery.findByNome(nome);
+            List<ProjetoDTO> projeto = _projetoQuery.findByName(nome).getData();
             return new ResponseEntity<>(projeto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -82,7 +74,7 @@ public class ProjetoController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary  = "Atualiza um novo projeto")
+    @Operation(summary  = "Atualizar um projeto")
     public ResponseEntity<ProjetoDTO> update(@PathVariable Long id, @RequestBody ProjetoDTO projetoDto) {
         try {
             projetoDto.setId(id);
@@ -93,8 +85,9 @@ public class ProjetoController {
         }
     }
 
-    @Operation(summary  = "Delete a project")
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary  = "Apagar um projeto")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         try {
             _projetoCommand.delete(id);
