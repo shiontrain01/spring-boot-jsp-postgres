@@ -150,9 +150,6 @@
 
       $('#projetoForm').attr('action', `${pageContext.request.contextPath}/api/v1/projeto`);
       $('#projetoForm').attr('method', 'put');
-    } else {
-      $('#projetoForm').attr('action', `${pageContext.request.contextPath}/api/v1/projeto`);
-      $('#projetoForm').attr('method', 'post');
     }
 
     $('#projetoForm').on('submit', function(event) {
