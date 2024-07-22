@@ -67,14 +67,14 @@
       <div class="form-group mb-3">
         <label for="status">Status</label>
         <select class="form-control" id="status" name="status" required>
-          <option value="EM_ANALISE">Em Análise</option>
-          <option value="ANALISE_REALIZADA">Análise Realizada</option>
-          <option value="ANALISE_APROVADA">Análise Aprovada</option>
-          <option value="INICIADO">Iniciado</option>
-          <option value="PLANEJADO">Planejado</option>
-          <option value="EM_ANDAMENTO">Em Andamento</option>
-          <option value="ENCERRADO">Encerrado</option>
-          <option value="CANCELADO">Cancelado</option>
+          <option value="EM_ANALISE" ${projeto.status == 'EM_ANALISE' ? 'selected' : ''}>Em Análise</option>
+          <option value="ANALISE_REALIZADA" ${projeto.status == 'ANALISE_REALIZADA' ? 'selected' : ''}>Análise Realizada</option>
+          <option value="ANALISE_APROVADA" ${projeto.status == 'ANALISE_APROVADA' ? 'selected' : ''}>Análise Aprovada</option>
+          <option value="INICIADO" ${projeto.status == 'INICIADO' ? 'selected' : ''}>Iniciado</option>
+          <option value="PLANEJADO" ${projeto.status == 'PLANEJADO' ? 'selected' : ''}>Planejado</option>
+          <option value="EM_ANDAMENTO" ${projeto.status == 'EM_ANDAMENTO' ? 'selected' : ''}>Em Andamento</option>
+          <option value="ENCERRADO" ${projeto.status == 'ENCERRADO' ? 'selected' : ''}>Encerrado</option>
+          <option value="CANCELADO" ${projeto.status == 'CANCELADO' ? 'selected' : ''}>Cancelado</option>
         </select>
       </div>
       <div class="form-actions">
@@ -106,15 +106,37 @@
           id: projectId
         },
         success: function(projeto) {
+
+          function formatDate(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            const month = '' + (d.getMonth() + 1);
+            const day = '' + d.getDate();
+            const year = d.getFullYear();
+
+            return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
+          }
+
+          var statusMap = {
+            'em análise': 'EM_ANALISE',
+            'análise realizada':'ANALISE_REALIZADA',
+            'análise aprovada': 'ANALISE_APROVADA',
+            'iniciado': 'INICIADO',
+            'planejado': 'PLANEJADO',
+            'em andamento': 'EM_ANDAMENTO',
+            'encerrado': 'ENCERRADO',
+            'cancelado': 'CANCELADO'
+          };
+
           $('#nome').val(projeto.nome);
-          $('#dataInicio').val(projeto.dataInicio);
+          $('#dataInicio').val(formatDate(projeto.dataInicio));
           $('#gerenteResponsavel').val(projeto.gerente);
-          $('#previsaoTermino').val(projeto.previsaoFim);
-          $('#dataRealTermino').val(projeto.dataFim);
+          $('#previsaoTermino').val(formatDate(projeto.previsaoFim));
+          $('#dataRealTermino').val(formatDate(projeto.dataFim));
           $('#orcamentoTotal').val(projeto.orcamento);
           $('#descricao').val(projeto.descricao);
           $('#risco').val(projeto.risco);
-          $('#status').val(projeto.status);
+          $('#status').val(statusMap[projeto.status]);
         },
         error: function(xhr, status, error) {
           alert('Erro ao carregar os detalhes do projeto.');
