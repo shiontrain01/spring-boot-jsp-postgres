@@ -15,12 +15,14 @@ public class PessoaQuery implements IPessoaQuery {
     private final PessoaMapper mapper = PessoaMapper.INSTANCE;
     private final PessoaRepository _repository;
 
+    @Override
     public ListResultDto<PessoaDTO> findAll() {
         var result = _repository.findAll();
         var response = result.stream().map(mapper::toDto).collect(Collectors.toList());
         return new ListResultDto<>(response);
     }
 
+    @Override
     public SingleResultDto<PessoaDTO> findById(Long id) {
         var result = _repository.findById(id);
         if (result.isPresent()) {
@@ -28,5 +30,12 @@ public class PessoaQuery implements IPessoaQuery {
             return new SingleResultDto<>(response);
         }
         return new SingleResultDto<>(0);
+    }
+
+    @Override
+    public ListResultDto<PessoaDTO> findByName(String nome) {
+        var result = _repository.findByNomeContainingIgnoreCase(nome.trim());
+        var response = result.stream().map(mapper::toDto).collect(Collectors.toList());
+        return new ListResultDto<>(response);
     }
 }

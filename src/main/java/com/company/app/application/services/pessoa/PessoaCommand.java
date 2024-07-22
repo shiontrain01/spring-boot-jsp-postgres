@@ -15,16 +15,19 @@ public class PessoaCommand implements IPessoaCommand {
     private final PessoaMapper mapper = PessoaMapper.INSTANCE;
     private final UseCaseFacade facade;
 
+    @Override
     public PessoaDTO save(PessoaDTO dto) {
         var result = mapper.toEntity(dto);
         return mapper.toDto(facade.execute(new UcPessoaCreate(result)));
     }
 
+    @Override
     public PessoaDTO update(PessoaDTO dto) {
         var result = mapper.toEntity(dto);
         return mapper.toDto(facade.execute(new UcPessoaEdit(result)));
     }
 
+    @Override
     public Void delete(Long id) {
         return facade.execute(new UcPessoaDelete(id));
     }
