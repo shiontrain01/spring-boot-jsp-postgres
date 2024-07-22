@@ -50,13 +50,13 @@ public class MembroQueryTest {
 
         membro = new Membro();
         membro.setId(1L);
-        membro.setProjeto(projeto);
-        membro.setPessoa(pessoa);
+        membro.setProjeto(projeto.getId());
+        membro.setPessoa(pessoa.getId());
 
         membroDTO = new MembroDTO();
         membroDTO.setId(1L);
-        membroDTO.setProjeto(projeto);
-        membroDTO.setPessoa(pessoa);
+        membroDTO.setProjeto(projeto.getId());
+        membroDTO.setPessoa(pessoa.getId());
     }
 
     @Test

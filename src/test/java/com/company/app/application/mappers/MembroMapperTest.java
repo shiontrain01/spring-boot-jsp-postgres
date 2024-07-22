@@ -16,23 +16,23 @@ public class MembroMapperTest {
 
     @Test
     public void toDto_deveConverterEntityParaDto() {
-        Membro membro = new Membro(1L, new Projeto(1L, "Projeto Teste", LocalDate.now(), LocalDate.now().plusDays(10), LocalDate.now().plusDays(20), "Descrição", "Status", 1000.0f, "Risco", new Pessoa()), new Pessoa(1L, "Pessoa Teste", LocalDate.now(), "123.456.789-00", true, false));
+        Membro membro = new Membro(1L, 1L, 1L);
 
         MembroDTO membroDTO = membroMapper.toDto(membro);
 
         assertEquals(membro.getId(), membroDTO.getId());
-        assertEquals(membro.getProjeto().getId(), membroDTO.getProjeto().getId());
-        assertEquals(membro.getPessoa().getId(), membroDTO.getPessoa().getId());
+        assertEquals(membro.getProjeto(), membroDTO.getProjeto());
+        assertEquals(membro.getPessoa(), membroDTO.getPessoa());
     }
 
     @Test
     public void toEntity_deveConverterDtoParaEntity() {
-        MembroDTO membroDTO = new MembroDTO(1L, new Projeto(), new Pessoa());
+        MembroDTO membroDTO = new MembroDTO(1L, 2L, 3l);
 
         Membro membro = membroMapper.toEntity(membroDTO);
 
         assertEquals(membroDTO.getId(), membro.getId());
-        assertEquals(membroDTO.getProjeto().getId(), membro.getProjeto().getId());
-        assertEquals(membroDTO.getPessoa().getId(), membro.getPessoa().getId());
+        assertEquals(membroDTO.getProjeto(), membro.getProjeto());
+        assertEquals(membroDTO.getPessoa(), membro.getPessoa());
     }
 }

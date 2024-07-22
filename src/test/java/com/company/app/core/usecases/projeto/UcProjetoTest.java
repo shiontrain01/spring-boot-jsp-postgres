@@ -45,7 +45,7 @@ public class UcProjetoTest {
         projeto.setStatus("Em andamento");
         projeto.setOrcamento(1000.0f);
         projeto.setRisco("Alto");
-        projeto.setGerente(new Pessoa());
+        projeto.setGerente(1L);
     }
 
     @Test

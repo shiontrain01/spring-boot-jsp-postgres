@@ -50,13 +50,13 @@ public class MembroCommandTest {
 
         membroDTO = new MembroDTO();
         membroDTO.setId(1L);
-        membroDTO.setProjeto(projeto);
-        membroDTO.setPessoa(pessoa);
+        membroDTO.setProjeto(1L);
+        membroDTO.setPessoa(1L);
 
         membro = new Membro();
         membro.setId(1L);
-        membro.setProjeto(projeto);
-        membro.setPessoa(pessoa);
+        membro.setProjeto(1L);
+        membro.setPessoa(1L);
     }
 
     @Test
@@ -69,8 +69,8 @@ public class MembroCommandTest {
 
         assertNotNull(result);
         assertEquals(membroDTO.getId(), result.getId());
-        assertEquals(membroDTO.getProjeto().getId(), result.getProjeto().getId());
-        assertEquals(membroDTO.getPessoa().getId(), result.getPessoa().getId());
+        assertEquals(membroDTO.getProjeto(), result.getProjeto());
+        assertEquals(membroDTO.getPessoa(), result.getPessoa());
         verify(facade, times(1)).execute(any(UcMembroCreate.class));
         verify(mapper, times(1)).toEntity(membroDTO);
         verify(mapper, times(1)).toDto(membro);
@@ -86,8 +86,8 @@ public class MembroCommandTest {
 
         assertNotNull(result);
         assertEquals(membroDTO.getId(), result.getId());
-        assertEquals(membroDTO.getProjeto().getId(), result.getProjeto().getId());
-        assertEquals(membroDTO.getPessoa().getId(), result.getPessoa().getId());
+        assertEquals(membroDTO.getProjeto(), result.getProjeto());
+        assertEquals(membroDTO.getPessoa(), result.getPessoa());
         verify(facade, times(1)).execute(any(UcMembroEdit.class));
         verify(mapper, times(1)).toEntity(membroDTO);
         verify(mapper, times(1)).toDto(membro);

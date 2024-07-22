@@ -15,7 +15,7 @@ public class ProjetoMapperTest {
 
     @Test
     public void toDto_deveConverterEntityParaDto() {
-        Projeto projeto = new Projeto(1L, "Projeto Teste", LocalDate.now(), LocalDate.now().plusDays(10), LocalDate.now().plusDays(20), "Descrição", "Status", 1000.0f, "Risco", new Pessoa());
+        Projeto projeto = new Projeto(1L, "Projeto Teste", LocalDate.now(), LocalDate.now().plusDays(10), LocalDate.now().plusDays(20), "Descrição", "Status", 1000.0f, "Risco", 2L);
 
         ProjetoDTO projetoDTO = projetoMapper.toDto(projeto);
 
@@ -28,12 +28,12 @@ public class ProjetoMapperTest {
         assertEquals(projeto.getStatus(), projetoDTO.getStatus());
         assertEquals(projeto.getOrcamento(), projetoDTO.getOrcamento());
         assertEquals(projeto.getRisco(), projetoDTO.getRisco());
-        assertEquals(projeto.getGerente().getId(), projetoDTO.getGerente().getId());
+        assertEquals(projeto.getGerente(), projetoDTO.getGerente());
     }
 
     @Test
     public void toEntity_deveConverterDtoParaEntity() {
-        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", LocalDate.now(), LocalDate.now().plusDays(10), LocalDate.now().plusDays(20), "Descrição", "Status", 1000.0f, "Risco", new Pessoa());
+        ProjetoDTO projetoDTO = new ProjetoDTO(1L, "Projeto Teste", LocalDate.now(), LocalDate.now().plusDays(10), LocalDate.now().plusDays(20), "Descrição", "Status", 1000.0f, "Risco", 3L);
 
         Projeto projeto = projetoMapper.toEntity(projetoDTO);
 
@@ -46,6 +46,6 @@ public class ProjetoMapperTest {
         assertEquals(projetoDTO.getStatus(), projeto.getStatus());
         assertEquals(projetoDTO.getOrcamento(), projeto.getOrcamento());
         assertEquals(projetoDTO.getRisco(), projeto.getRisco());
-        assertEquals(projetoDTO.getGerente().getId(), projeto.getGerente().getId());
+        assertEquals(projetoDTO.getGerente(), projeto.getGerente());
     }
 }

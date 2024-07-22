@@ -38,8 +38,8 @@ public class UcMembroTest {
     public void setUp() {
         membro = new Membro();
         membro.setId(1L);
-        membro.setProjeto(new Projeto());
-        membro.setPessoa(new Pessoa());
+        membro.setProjeto(1L);
+        membro.setPessoa(1L);
     }
 
     @Test
