@@ -80,11 +80,8 @@
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Salvar</button>
         <a href="${pageContext.request.contextPath}/projetos" class="btn btn-primary btn-custom">Cancelar</a>
+        <button type="button" id="deleteButton" class="btn btn-danger">Deletar</button>
       </div>
-    </form>
-    <form id="deleteForm" action="${pageContext.request.contextPath}/api/v1/projeto/${param.id}" method="post" class="mt-3">
-      <input type="hidden" name="_method" value="delete">
-      <button type="submit" class="btn btn-danger">Excluir</button>
     </form>
   </div>
 </div>
@@ -199,6 +196,24 @@
           },
           error: function() {
             alert('Erro ao salvar o projeto.');
+          }
+        });
+      }
+    });
+    $('#deleteButton').click(function() {
+      if (confirm('Tem certeza que deseja deletar este projeto?')) {
+        var deleteUrl = `${pageContext.request.contextPath}/api/v1/projeto/` + projectId;
+        console.log('deleteUrl:', deleteUrl);
+
+        $.ajax({
+          type: 'DELETE',
+          url: deleteUrl,
+          success: function() {
+            alert('Projeto deletado com sucesso.');
+            window.location.href = `${pageContext.request.contextPath}/projetos`;
+          },
+          error: function() {
+            alert('Erro ao deletar o projeto.');
           }
         });
       }
