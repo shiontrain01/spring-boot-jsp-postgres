@@ -106,7 +106,6 @@
           id: projectId
         },
         success: function(projeto) {
-
           function formatDate(date) {
             if (!date) return '';
             const d = new Date(date);
@@ -128,6 +127,12 @@
             'cancelado': 'CANCELADO'
           };
 
+          var riskMap = {
+            'baixo risco': 'BAIXO_RISCO',
+            'médio risco': 'MEDIO_RISCO',
+            'alto risco': 'ALTO_RISCO'
+          };
+
           $('#nome').val(projeto.nome);
           $('#dataInicio').val(formatDate(projeto.dataInicio));
           $('#gerenteResponsavel').val(projeto.gerente);
@@ -143,10 +148,11 @@
         }
       });
 
-      $('#projetoForm').attr('action', `${pageContext.request.contextPath}/api/v1/projeto/${projectId}`);
-      $('#projetoForm').append('<input type="hidden" name="_method" value="put">');
+      $('#projetoForm').attr('action', `${pageContext.request.contextPath}/api/v1/projeto`);
+      $('#projetoForm').attr('method', 'put');
     } else {
       $('#projetoForm').attr('action', `${pageContext.request.contextPath}/api/v1/projeto`);
+      $('#projetoForm').attr('method', 'post');
     }
 
     $('#projetoForm').on('submit', function(event) {
@@ -155,19 +161,8 @@
         event.stopPropagation();
         $(this).addClass('was-validated');
       } else {
-
-        var statusMap = {
-          'EM_ANALISE': 'em análise',
-          'ANALISE_REALIZADA': 'análise realizada',
-          'ANALISE_APROVADA': 'análise aprovada',
-          'INICIADO': 'iniciado',
-          'PLANEJADO': 'planejado',
-          'EM_ANDAMENTO': 'em andamento',
-          'ENCERRADO': 'encerrado',
-          'CANCELADO': 'cancelado'
-        };
-
         var formData = {
+          id: projectId,
           nome: $('#nome').val(),
           dataInicio: $('#dataInicio').val(),
           gerente: $('#gerenteResponsavel').val(),
@@ -175,17 +170,17 @@
           dataFim: $('#dataRealTermino').val(),
           orcamento: $('#orcamentoTotal').val(),
           descricao: $('#descricao').val(),
-          risco: $('#risco').val(),
-          status: statusMap[$('#status').val()]
+          risco: $('#risco').val().toLowerCase().replace(/_/g, ' '),
+          status: $('#status').val().toLowerCase().replace(/_/g, ' ')
         };
 
         $.ajax({
-          type: 'POST',
-          url: $(this).attr('action'),
+          type: 'PUT',
+          url: `${pageContext.request.contextPath}/api/v1/projeto`,
           contentType: 'application/json',
           data: JSON.stringify(formData),
           success: function() {
-            window.location.href = '${pageContext.request.contextPath}/projetos';
+            window.location.href = `${pageContext.request.contextPath}/projetos`;
           },
           error: function() {
             alert('Erro ao salvar o projeto.');

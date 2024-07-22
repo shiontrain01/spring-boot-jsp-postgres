@@ -72,12 +72,11 @@ public class ProjetoController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary  = "Atualizar um projeto")
-    public ResponseEntity<ProjetoDTO> update(@PathVariable Long id, @RequestBody ProjetoDTO dto) {
+    @Operation(summary = "Atualizar um projeto")
+    public ResponseEntity<ProjetoDTO> update(@RequestBody ProjetoDTO dto) {
         try {
-            dto.setId(id);
             ProjetoDTO projeto = _projetoCommand.save(dto);
             return new ResponseEntity<>(projeto, HttpStatus.OK);
         } catch (Exception e) {
