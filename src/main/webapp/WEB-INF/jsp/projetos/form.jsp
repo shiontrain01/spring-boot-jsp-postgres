@@ -89,7 +89,7 @@
 
 <%@ include file="../includes/footer.jsp" %>
 
-<script src="${pageContext.request.contextPath}/static/node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   $(document).ready(function() {
@@ -99,11 +99,23 @@
         event.stopPropagation();
         $(this).addClass('was-validated');
       } else {
-        var formData = $(this).serialize();
+        var formData = {
+          nome: $('#nome').val(),
+          dataInicio: $('#dataInicio').val(),
+          gerenteResponsavel: $('#gerenteResponsavel').val(),
+          previsaoTermino: $('#previsaoTermino').val(),
+          dataRealTermino: $('#dataRealTermino').val(),
+          orcamentoTotal: $('#orcamentoTotal').val(),
+          descricao: $('#descricao').val(),
+          risco: $('#risco').val(),
+          status: $('#status').val()
+        };
+
         $.ajax({
           type: 'POST',
           url: '${pageContext.request.contextPath}/api/v1/projeto',
-          data: formData,
+          contentType: 'application/json',
+          data: JSON.stringify(formData),
           success: function(response) {
             window.location.href = '${pageContext.request.contextPath}/projetos/view?success=true';
           },
